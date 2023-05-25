@@ -17,9 +17,14 @@ public class ServicioDFS {
     }
 
 
-    /**
-     * Complejidad:  O()
-     */
+   /**
+ * Complejidad: O(V + A)
+ * Este método realiza un recorrido DFS (Depth-First Search) en el grafo implementado con un HashMap y devuelve un bosque DFS.
+ * Utiliza una implementación iterativa del algoritmo DFS.
+ * La complejidad depende de la cantidad de vértices (V) y arcos (A) en el grafo.
+ * En el peor de los casos, se visita cada vértice y cada arco una vez durante la ejecución del algoritmo.
+ * La complejidad total del método es O(V + A).
+ */
     public List<Integer> dfsForest() {
         // Resolver DFS()
         ArrayList<Integer> lista = new ArrayList<Integer>();
@@ -43,8 +48,13 @@ public class ServicioDFS {
     }
 
     /**
-     * Complejidad:  O()
-     */
+ * Complejidad: O(V + A)
+ * Este método realiza un recorrido DFS (Depth-First Search) en el grafo implementado con un HashMap y devuelve un subárbol DFS a partir de un vértice dado.
+ * Utiliza una implementación recursiva del algoritmo DFS.
+ * La complejidad depende de la cantidad de vértices (V) y arcos (A) en el grafo.
+ * En el peor de los casos, se visita cada vértice y cada arco una vez durante la ejecución del algoritmo.
+ * La complejidad total del método es O(V + A).
+ */
     public List<Integer> dfsForest(Integer vertice){
         ArrayList<Integer> lista = new ArrayList<Integer>();
         this.vertices.put(vertice, "AMARILLO");
