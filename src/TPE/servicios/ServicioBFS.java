@@ -16,11 +16,8 @@ public class ServicioBFS {
 
     /**
  * Complejidad: O(V + A)
- * Este método realiza un recorrido BFS (Breadth-First Search) en el grafo implementado con un HashMap
- * y devuelve una lista con los vértices en el orden en que son visitados.
  * La complejidad depende de la cantidad de vértices (V) y arcos (A) en el grafo.
  * En el peor de los casos, se recorren todos los vértices y arcos del grafo durante el recorrido BFS.
- * La implementación del recorrido BFS tiene una complejidad de O(V + A) en un grafo representado con una estructura de datos basada en HashMap.
  * Por lo tanto, la complejidad total del método es O(V + A).
  */
     public List<Integer> bfsForest() {
@@ -43,15 +40,6 @@ public class ServicioBFS {
         return lista;
     }
 
-/**
- * Complejidad: O(V + A)
- * Este método realiza un recorrido BFS (Breadth-First Search) en el grafo implementado con un HashMap
- * comenzando desde el vértice especificado y devuelve una lista con los vértices visitados en el orden en que son alcanzados durante el recorrido BFS.
- * La complejidad depende de la cantidad de vértices (V) y arcos (A) en el grafo.
- * En el peor de los casos, se recorren todos los vértices y arcos alcanzables desde el vértice de inicio durante el recorrido BFS.
- * La implementación del recorrido BFS tiene una complejidad de O(V + A) en un grafo representado con una estructura de datos basada en HashMap.
- * Por lo tanto, la complejidad total del método es O(V + A).
- */
     public List<Integer> bfsForest(int vertice){
         ArrayList<Integer> aux = new ArrayList<>();
         ArrayList<Integer> end = new ArrayList<>();

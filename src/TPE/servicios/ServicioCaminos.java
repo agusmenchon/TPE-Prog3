@@ -29,7 +29,6 @@ public class ServicioCaminos {
 
    /**
  * Complejidad: O(V + A)
- * Este método encuentra todos los caminos posibles en el grafo implementado con un HashMap desde el origen especificado hasta los demás vértices.
  * Utiliza un enfoque de backtracking para construir los caminos recursivamente.
  * La complejidad depende de la cantidad de vértices (V) y arcos (A) en el grafo.
  * En el peor de los casos, se exploran todos los caminos posibles en el grafo durante la ejecución del algoritmo.
@@ -40,23 +39,11 @@ public class ServicioCaminos {
         List<Arco<?>> visitados = new ArrayList<>();
         caminoActual.add(this.origen);
         caminos(visitados, caminoActual, origen, 1);
-        //caminos(caminoActual, origen, 0);
         return this.caminos;
     }
 
-
-    /**
- * Complejidad: O(V + A)
- * Este método encuentra todos los caminos posibles en el grafo implementado con un HashMap desde el origen especificado hasta el destino.
- * Utiliza un enfoque de backtracking para construir los caminos recursivamente.
- * La complejidad depende de la cantidad de vértices (V) y arcos (A) en el grafo.
- * En el peor de los casos, se exploran todos los caminos posibles en el grafo durante la ejecución del algoritmo.
- * La complejidad total del método es O(V + A).
- */
     private void caminos(List<Arco<?>> arcosVisitados, List<Integer> caminoActual, int verticeActual, int contador) {
         if(verticeActual==destino){
-            //System.out.println("completo el camino de 3 a 2");
-            //System.out.println(caminoActual.toString());
             List<Integer> aux = new ArrayList<>();
             aux.addAll(caminoActual);
             this.caminos.add(aux);
