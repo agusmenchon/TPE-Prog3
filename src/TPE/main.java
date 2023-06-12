@@ -54,7 +54,7 @@ public class main {
         ServicioBFS bfs = new ServicioBFS(g);
         System.out.println(bfs.bfsForest().toString());
 
-        ServicioCaminos cam = new ServicioCaminos(g, 3, 2, 10);
+        ServicioCaminos cam = new ServicioCaminos(g, 3, 2, 9);
         List<List<Integer>> caminos = cam.caminos();
         System.out.println("\nCaminos: ");
         for (List<Integer> list : caminos) {
