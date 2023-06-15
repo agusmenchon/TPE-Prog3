@@ -61,7 +61,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
      * Sin embargo, en promedio, la complejidad se mantiene en Oa(log N) debido la estructura de datos subyacente utilizada.
      * Por lo tanto, la complejidad de tiempo del método es logarítmica en promedio, O(log N). */
     @Override
-    public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
+    public void agregarArco(int verticeId1, int verticeId2, int etiqueta) {
         if(!this.existeArco(verticeId1, verticeId2) && verticeId1!=verticeId2){
             Vertice<T> v1 = new Vertice<>(verticeId1);
             Vertice<T> v2 = new Vertice<>(verticeId2);

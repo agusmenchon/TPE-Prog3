@@ -47,13 +47,11 @@ public class ServicioCaminos {
             List<Integer> aux = new ArrayList<>();
             aux.addAll(caminoActual);
             this.caminos.add(aux);
-
         } else{
             for(Iterator<?> it = grafo.obtenerArcos(verticeActual); it.hasNext();){
                 Arco<?> arco = (Arco<?>) it.next();
                 if(!arcosVisitados.contains(arco)) {
                     arcosVisitados.add(arco);
-                    //System.out.println(arco.getVerticeOrigen().getId() + " " + arco.getVerticeDestino().getId());
                     if (contador < lim) {
                         int vecino = arco.getVerticeDestino().getId();
                         caminoActual.add(vecino);
