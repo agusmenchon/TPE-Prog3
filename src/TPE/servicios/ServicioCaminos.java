@@ -53,7 +53,7 @@ public class ServicioCaminos {
                 if(!arcosVisitados.contains(arco)) {
                     arcosVisitados.add(arco);
                     if (contador < lim) {
-                        int vecino = arco.getVerticeDestino().getId();
+                        int vecino = arco.getVerticeDestino();
                         caminoActual.add(vecino);
                         caminos(arcosVisitados, caminoActual, vecino, contador+1);
                         caminoActual.remove(caminoActual.size()-1);

@@ -4,25 +4,25 @@ import java.util.Comparator;
 
 public class Arco<T> {
 
-    private Vertice<T> verticeOrigen;
-    private Vertice<T> verticeDestino;
-    private int etiqueta;
+    private Integer verticeOrigen;
+    private Integer verticeDestino;
+    private T etiqueta;
 
-    public Arco(Vertice<T> verticeOrigen, Vertice<T> verticeDestino, int etiqueta) {
+    public Arco(Integer verticeOrigen, Integer verticeDestino, T etiqueta) {
         this.verticeOrigen = verticeOrigen;
         this.verticeDestino = verticeDestino;
         this.etiqueta = etiqueta;
     }
 
-    public Vertice<T> getVerticeOrigen() {
+    public Integer getVerticeOrigen() {
         return verticeOrigen;
     }
 
-    public Vertice<T>  getVerticeDestino() {
+    public Integer  getVerticeDestino() {
         return verticeDestino;
     }
 
-    public int getEtiqueta() {
+    public T getEtiqueta() {
         return etiqueta;
     }
 
@@ -34,6 +34,12 @@ public class Arco<T> {
 //        if(arco1.getEtiqueta() < arco2.getEtiqueta()) return -1;
 //        return 0;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "Arco{" + "verticeOrigen=" + verticeOrigen + ", verticeDestino=" + verticeDestino + ", etiqueta=" + etiqueta + '}';
+    }
 
     @Override
     public boolean equals(Object o) {

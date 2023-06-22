@@ -44,10 +44,12 @@ public class GrafoDirigido<T> implements Grafo<T> {
      */
     @Override
     public void borrarVertice(int verticeId) {
+        //TODO
+        //Borrar los vertices ENTRANTES al vertice borrado (verticeId)
         if(!this.contieneVertice(verticeId)){
             for(Iterator<Arco<T>> it = vertices.get(verticeId).iterator(); it.hasNext();){
                 Arco<T> arco = (Arco<T>) it.next();
-                this.borrarArco(verticeId, arco.getVerticeDestino().getId());
+                this.borrarArco(verticeId, arco.getVerticeDestino());
             }
             this.vertices.remove(verticeId);
             cantVertices--;
@@ -61,13 +63,13 @@ public class GrafoDirigido<T> implements Grafo<T> {
      * Sin embargo, en promedio, la complejidad se mantiene en Oa(log N) debido la estructura de datos subyacente utilizada.
      * Por lo tanto, la complejidad de tiempo del método es logarítmica en promedio, O(log N). */
     @Override
-    public void agregarArco(int verticeId1, int verticeId2, int etiqueta) {
+    public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
         if(!this.existeArco(verticeId1, verticeId2) && verticeId1!=verticeId2){
-            Vertice<T> v1 = new Vertice<>(verticeId1);
-            Vertice<T> v2 = new Vertice<>(verticeId2);
-            Arco<T> arco = new Arco<>(v1, v2, etiqueta);
-            vertices.get(verticeId1).add(arco);
-            cantArcos++;
+            if(this.contieneVertice(verticeId1) && this.contieneVertice(verticeId2)){
+                Arco<T> arco = new Arco<>(verticeId1, verticeId2, etiqueta);
+                vertices.get(verticeId1).add(arco);
+                cantArcos++;
+            }
         }
     }
 
@@ -133,7 +135,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
     public Arco<T> obtenerArco(int verticeId1, int verticeId2) {
         for(Iterator<Arco<T>> it = vertices.get(verticeId1).iterator(); it.hasNext();){
             Arco<T> arco = (Arco<T>) it.next();
-            if(arco.getVerticeDestino().getId() == verticeId1){
+            //se cambio el == por el equals para que de verdadero y devuelva el Arco correspondiente.
+            if(arco.getVerticeOrigen().equals(verticeId1) && arco.getVerticeDestino().equals(verticeId2)){
                 return arco;
             }
         }
@@ -176,7 +179,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
         ArrayList<Integer> adyacentes = new ArrayList<>();
         for(Iterator<Arco<T>> it = vertices.get(verticeId).iterator(); it.hasNext();){
             Arco<T> arco = (Arco<T>) it.next();
-            adyacentes.add(arco.getVerticeDestino().getId());
+            adyacentes.add(arco.getVerticeDestino());
         }
         return adyacentes.iterator();
     }

@@ -42,36 +42,40 @@ public class Backtracking {
 
         //si contVisitados == a la cantidad de vertices que tiene el grafo
         if (contVisitados == grafo.cantidadVertices()) {
-            if (metrosActuales < menorMetros) {
+//            if (metrosActuales < menorMetros) {
                 menorMetros = metrosActuales;
                 recorridoMinimo.clear();
                 recorridoMinimo.addAll(caminoActual);
                 for(Arco<?> arco : recorridoMinimo){
-                    System.out.print("E"+arco.getVerticeOrigen().getId()+"-"+"E"+arco.getVerticeDestino().getId()+",");
+                    System.out.print("E"+arco.getVerticeOrigen()+"-"+"E"+arco.getVerticeDestino()+",");
                 }
                 System.out.println("\nLa suma de los caminos es: " + menorMetros);
-            }
+//            }
 
         } else {
             //itero todos los arcos del vertice pasado por parametro (inicializado en 1)
             for (Iterator<?> iterador = grafo.obtenerArcos(vertice); iterador.hasNext(); ) {
                 Arco<?> arco = (Arco<?>) iterador.next();
-                int verticeDestino = arco.getVerticeDestino().getId();
+                int verticeDestino = arco.getVerticeDestino();
 
                 if (!visitados.contains(verticeDestino)) {
                     visitados.add(verticeDestino);
-                    //if ((arco.getEtiqueta()+metrosActuales) < menorMetros) {
-                        contVisitados++; // o caminoActual.size()
-                        metrosActuales += arco.getEtiqueta();
+
+                    //RESTRICCION IMPLICITA o poda del arbol
+//                    if ((arco.getEtiqueta()+metrosActuales) < menorMetros) {
+                        contVisitados++;
+                        //metrosActuales += arco.getEtiqueta();
                         caminoActual.add(arco);
-                        Backtracking(recorridoMinimo, caminoActual, visitados, verticeDestino, contVisitados, metrosActuales);
-                    //}
-                    /* EL PROBLEMA CREO QUE ESTA ACA --- CHEQUEAR!!!!!!*/
-                    contVisitados--;
-                    visitados.remove(visitados.size()-1);
-                    metrosActuales -= arco.getEtiqueta();
-                    caminoActual.remove(caminoActual.size()-1);
+                        //llamado recursivo a backtracking
+                        Backtracking(recorridoMinimo, caminoActual, visitados, verticeDestino, contVisitados , metrosActuales);
+//                    }
                 }
+                if (contVisitados == grafo.cantidadVertices()){
+                    caminoActual.remove(arco);
+                    //metrosActuales = metrosActuales - arco.getEtiqueta();
+                    visitados.remove(arco.getVerticeDestino());
+                    contVisitados--;
+                } 
             }
         }
     }

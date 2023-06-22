@@ -19,7 +19,7 @@ public class Greedy {
         this.Prim(vertice);
         System.out.println("Algoritmo PRIM");
         for(Arco<?> arco : recorrido){
-            System.out.print("E"+arco.getVerticeOrigen().getId()+"-"+"E"+arco.getVerticeDestino().getId()+",");
+            System.out.print("E"+arco.getVerticeOrigen()+"-"+"E"+arco.getVerticeDestino()+",");
         }
         System.out.println("\nLa suma de los caminos es: " + sumaEtiqueta);
     }
@@ -33,7 +33,7 @@ public class Greedy {
 
     public void Prim(int vertice){
         ArrayList<Integer> verticesVisitados = new ArrayList<>();
-        PriorityQueue<Arco<?>> cola = new PriorityQueue<>(Comparator.comparingInt(Arco::getEtiqueta));
+        PriorityQueue<Arco<?>> cola = new PriorityQueue<>(/*Comparator.comparingInt(Arco::getEtiqueta)*/);
 
         verticesVisitados.add(vertice);
 
@@ -41,12 +41,12 @@ public class Greedy {
         int cont = 0;
         while(!cola.isEmpty() && cont < this.grafo.cantidadVertices()){
             Arco<?> arcoActual = cola.poll();
-            int verticeDestino = arcoActual.getVerticeDestino().getId();
+            int verticeDestino = arcoActual.getVerticeDestino();
             if(!verticesVisitados.contains(verticeDestino)){
                 recorrido.add(arcoActual);
-                sumaEtiqueta += arcoActual.getEtiqueta();
+                //sumaEtiqueta += arcoActual.getEtiqueta();
                 verticesVisitados.add(verticeDestino);
-                vertice = arcoActual.getVerticeDestino().getId();
+                vertice = arcoActual.getVerticeDestino();
                 cont++;
                 seleccion(cola,vertice,verticesVisitados);
             }
@@ -56,7 +56,7 @@ public class Greedy {
     public void seleccion(PriorityQueue cola, int vertice, ArrayList<Integer> visitados){
         for(Iterator<?> it = grafo.obtenerArcos(vertice); it.hasNext();){
             Arco<?> arco = (Arco<?>) it.next();
-            if(!visitados.contains(arco.getVerticeDestino().getId())){
+            if(!visitados.contains(arco.getVerticeDestino())){
                 cola.add(arco);
             }
         }

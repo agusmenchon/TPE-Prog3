@@ -11,7 +11,8 @@ public interface Grafo<T> {
     public void borrarVertice(int verticeId);
 
     // Agrega un arco con una etiqueta, que conecta el verticeId1 con el verticeId2
-    public void agregarArco(int verticeId1, int verticeId2, int etiqueta);
+    public void agregarArco(int verticeId1, int verticeId2, T etiqueta);
+
 
     // Borra el arco que conecta el verticeId1 con el verticeId2
     public void borrarArco(int verticeId1, int verticeId2);
