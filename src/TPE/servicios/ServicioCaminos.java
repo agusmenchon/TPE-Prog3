@@ -12,7 +12,7 @@ public class ServicioCaminos {
     private int origen;
     private int destino;
     private int lim;
-    private List<List<Integer>> caminos;
+    private List<List<Arco<?>>> caminos;
 
 //  Caminos: dado un origen, un destino y un límite “lim” retorna todos los caminos que, partiendo del
 //  vértice origen, llega al vértice de destino sin pasar por más de “lim” arcos.
@@ -34,17 +34,39 @@ public class ServicioCaminos {
  * En el peor de los casos, se exploran todos los caminos posibles en el grafo durante la ejecución del algoritmo.
  * La complejidad total del método es O(V + A).
  */
-    public List<List<Integer>> caminos() {
-        List<Integer> caminoActual = new ArrayList<>();
+    public List<List<Arco<?>>> caminos() {
+        List<Arco<?>> caminoActual = new ArrayList<>();
         List<Arco<?>> visitados = new ArrayList<>();
-        caminoActual.add(this.origen);
+        //caminoActual.add(this.origen);
         caminos(visitados, caminoActual, origen, 1);
         return this.caminos;
     }
 
-    private void caminos(List<Arco<?>> arcosVisitados, List<Integer> caminoActual, int verticeActual, int contador) {
+//    private void caminos(List<Arco<?>> arcosVisitados, List<Integer> caminoActual, int verticeActual, int contador) {
+//        if(verticeActual==destino){
+//            List<Integer> aux = new ArrayList<>();
+//            aux.addAll(caminoActual);
+//            this.caminos.add(aux);
+//        } else{
+//            for(Iterator<?> it = grafo.obtenerArcos(verticeActual); it.hasNext();){
+//                Arco<?> arco = (Arco<?>) it.next();
+//                if(!arcosVisitados.contains(arco)) {
+//                    arcosVisitados.add(arco);
+//                    if (contador < lim) {
+//                        int vecino = arco.getVerticeDestino();
+//                        caminoActual.add(vecino);
+//                        caminos(arcosVisitados, caminoActual, vecino, contador+1);
+//                        caminoActual.remove(caminoActual.size()-1);
+//                    }
+//                    arcosVisitados.remove(arcosVisitados.size()-1);
+//                }
+//            }
+//        }
+//    }
+
+    private void caminos(List<Arco<?>> arcosVisitados, List<Arco<?>> caminoActual, int verticeActual, int contador) {
         if(verticeActual==destino){
-            List<Integer> aux = new ArrayList<>();
+            List<Arco<?>> aux = new ArrayList<>();
             aux.addAll(caminoActual);
             this.caminos.add(aux);
         } else{
@@ -52,12 +74,14 @@ public class ServicioCaminos {
                 Arco<?> arco = (Arco<?>) it.next();
                 if(!arcosVisitados.contains(arco)) {
                     arcosVisitados.add(arco);
-                    if (contador < lim) {
+                    if (contador <= lim) {
+                        contador++;
                         int vecino = arco.getVerticeDestino();
-                        caminoActual.add(vecino);
-                        caminos(arcosVisitados, caminoActual, vecino, contador+1);
+                        caminoActual.add(arco);
+                        caminos(arcosVisitados, caminoActual, vecino, contador);
                         caminoActual.remove(caminoActual.size()-1);
                     }
+                    contador--;
                     arcosVisitados.remove(arcosVisitados.size()-1);
                 }
             }

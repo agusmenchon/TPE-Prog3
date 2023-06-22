@@ -2,10 +2,8 @@ package TPE.collections;
 
 //import TPE.collections.Vertice;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GrafoDirigido<T> implements Grafo<T> {
     private HashMap<Integer, HashSet<Arco<T>>> vertices;
@@ -44,12 +42,42 @@ public class GrafoDirigido<T> implements Grafo<T> {
      */
     @Override
     public void borrarVertice(int verticeId) {
-        //TODO
-        //Borrar los vertices ENTRANTES al vertice borrado (verticeId)
-        if(!this.contieneVertice(verticeId)){
-            for(Iterator<Arco<T>> it = vertices.get(verticeId).iterator(); it.hasNext();){
-                Arco<T> arco = (Arco<T>) it.next();
-                this.borrarArco(verticeId, arco.getVerticeDestino());
+        /** Creo una lista para guardar los arcos y eliminarlos (ya que no encontre forma de realizarlo con el iterator) **/
+
+        ArrayList<Arco<T>> arcos = new ArrayList<>();
+        //Borrar los arcos ENTRANTES al vertice borrado (verticeId)
+        //Borrar los arcos salientes del vertice a borrar
+        //borrar el vertice pasado por parametro
+
+        if(this.contieneVertice(verticeId)){
+//            for(Arco<T> arco : this.vertices.get(verticeId)){
+//                System.out.println(arco.toString());
+//                arcos.add(arco);
+//            }
+            for(Iterator<Arco<T>> it2 = this.vertices.get(verticeId).iterator(); it2.hasNext();){
+                Arco<T> arco = (Arco<T>) it2.next();
+                //this.borrarArco(verticeId, arco.getVerticeDestino());
+                arcos.add(arco);
+            }
+
+            /** itero todos los vertices del grafo buscando que alguno sea adyacente pero que tenga como DESTINO a "verticeID" **/
+            for (Iterator<Integer> v = this.obtenerVertices(); v.hasNext();) {
+                Integer verticeOrigen = (Integer) v.next();
+                //si el vertice iterado es == a vertice a borrar sigo con otra iteracion.
+                if(verticeOrigen.equals(verticeId)){
+                    continue;
+                }
+                /** si el arco obtenido es real quiere decir que es distinto de null
+                en ese caso daria afirmativo de que es un arco entrante al vertice a borrar. **/
+                Arco<T> arco = this.obtenerArco(verticeOrigen,verticeId);
+                if(arco!=null){
+                    arcos.add(arco);
+                }
+            }
+
+            for(Arco<T> arco : arcos){
+                System.out.println(arco.toString());
+                this.borrarArco(arco.getVerticeOrigen(), arco.getVerticeDestino());
             }
             this.vertices.remove(verticeId);
             cantVertices--;
@@ -64,8 +92,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
      * Por lo tanto, la complejidad de tiempo del método es logarítmica en promedio, O(log N). */
     @Override
     public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
-        if(!this.existeArco(verticeId1, verticeId2) && verticeId1!=verticeId2){
-            if(this.contieneVertice(verticeId1) && this.contieneVertice(verticeId2)){
+        if(this.contieneVertice(verticeId1) && this.contieneVertice(verticeId2)) {
+            if (!this.existeArco(verticeId1, verticeId2) && verticeId1 != verticeId2) {
                 Arco<T> arco = new Arco<>(verticeId1, verticeId2, etiqueta);
                 vertices.get(verticeId1).add(arco);
                 cantArcos++;
@@ -135,8 +163,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
     public Arco<T> obtenerArco(int verticeId1, int verticeId2) {
         for(Iterator<Arco<T>> it = vertices.get(verticeId1).iterator(); it.hasNext();){
             Arco<T> arco = (Arco<T>) it.next();
-            //se cambio el == por el equals para que de verdadero y devuelva el Arco correspondiente.
             if(arco.getVerticeOrigen().equals(verticeId1) && arco.getVerticeDestino().equals(verticeId2)){
+                /** se cambio el "==" por el equals para que de verdadero (al ser un Integer no funcionaba) y devuelva el Arco **/
                 return arco;
             }
         }
@@ -176,6 +204,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
      * En el peor de los casos, se recorren todos los arcos asociados al vérticeId para obtener sus vértices destino. */
     @Override
     public Iterator<Integer> obtenerAdyacentes(int verticeId) {
+        //TODO REVISAR!
         ArrayList<Integer> adyacentes = new ArrayList<>();
         for(Iterator<Arco<T>> it = vertices.get(verticeId).iterator(); it.hasNext();){
             Arco<T> arco = (Arco<T>) it.next();

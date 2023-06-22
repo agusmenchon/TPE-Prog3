@@ -38,7 +38,8 @@ public class Arco<T> {
 
     @Override
     public String toString() {
-        return "Arco{" + "verticeOrigen=" + verticeOrigen + ", verticeDestino=" + verticeDestino + ", etiqueta=" + etiqueta + '}';
+        //return "Arco{" + "verticeOrigen=" + verticeOrigen + ", verticeDestino=" + verticeDestino + ", etiqueta=" + etiqueta + '}';
+        return verticeOrigen+"-"+verticeDestino;
     }
 
     @Override

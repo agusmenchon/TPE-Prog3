@@ -46,9 +46,14 @@ public class main {
         System.out.println("Grafo:");
         g.imprimir();
 
-        System.out.println("Obtener arco Origen: 10 y Destino 2:");
-        Arco<Integer> arco = g.obtenerArco(10,2);
-        System.out.println(arco.toString());
+//        System.out.println("Obtener arco Origen: 10 y Destino 2:");
+//        Arco<Integer> arco = g.obtenerArco(10,2);
+//        System.out.println(arco.toString());
+//
+//        System.out.println("Borrado de vertice: 8");
+//        g.borrarVertice(2);
+//        System.out.println("Borrando....");
+//        g.imprimir();
 //
 //        System.out.println("\nRecorrido DFS:");
 //        ServicioDFS dfs = new ServicioDFS(g);
@@ -58,12 +63,12 @@ public class main {
 //        ServicioBFS bfs = new ServicioBFS(g);
 //        System.out.println(bfs.bfsForest().toString());
 //
-//        ServicioCaminos cam = new ServicioCaminos(g, 3, 2, 9);
-//        List<List<Integer>> caminos = cam.caminos();
-//        System.out.println("\nCaminos: ");
-//        for (List<Integer> list : caminos) {
-//            System.out.println(list.toString());
-//        }
+        ServicioCaminos cam = new ServicioCaminos(g, 3, 2, 7);
+        List<List<Arco<?>>> caminos = cam.caminos();
+        System.out.println("\nCaminos: ");
+        for (List<Arco<?>> list : caminos) {
+            System.out.println(list.toString());
+        }
 
 //        String path = "src/TPE/dataset1.txt";
 //        CSVReader reader = new CSVReader(path);
