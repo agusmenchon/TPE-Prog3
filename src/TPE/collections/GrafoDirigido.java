@@ -36,50 +36,27 @@ public class GrafoDirigido<T> implements Grafo<T> {
     /**
      * Complejidad: O(n)
      * Este método elimina un vértice del grafo implementado con un HashMap.
-     * La complejidad lineal se debe a que se debe recorrer la lista de arcos del vértice a eliminar y llamar al método
-     * borrarArco para cada arco. Además, se realiza la eliminación del vértice del HashMap, lo cual también tiene una
+     * La complejidad se debe a que recorre todos los vertices del grafo buscando que algun arco tenga como destino el vertice pasado como parametro.
+     * Además, se realiza la eliminación del vértice del HashMap, lo cual también tiene una
      * complejidad lineal en el peor de los casos.
      */
     @Override
     public void borrarVertice(int verticeId) {
-        /** Creo una lista para guardar los arcos y eliminarlos (ya que no encontre forma de realizarlo con el iterator) **/
-
-        ArrayList<Arco<T>> arcos = new ArrayList<>();
         //Borrar los arcos ENTRANTES al vertice borrado (verticeId)
         //Borrar los arcos salientes del vertice a borrar
         //borrar el vertice pasado por parametro
 
         if(this.contieneVertice(verticeId)){
-//            for(Arco<T> arco : this.vertices.get(verticeId)){
-//                System.out.println(arco.toString());
-//                arcos.add(arco);
-//            }
-            for(Iterator<Arco<T>> it2 = this.vertices.get(verticeId).iterator(); it2.hasNext();){
-                Arco<T> arco = (Arco<T>) it2.next();
-                //this.borrarArco(verticeId, arco.getVerticeDestino());
-                arcos.add(arco);
-            }
-
-            /** itero todos los vertices del grafo buscando que alguno sea adyacente pero que tenga como DESTINO a "verticeID" **/
+            vertices.remove(verticeId);
+            //itero todos los vertices del grafo buscando que algun arco tenga como DESTINO a "verticeID"
             for (Iterator<Integer> v = this.obtenerVertices(); v.hasNext();) {
                 Integer verticeOrigen = (Integer) v.next();
-                //si el vertice iterado es == a vertice a borrar sigo con otra iteracion.
-                if(verticeOrigen.equals(verticeId)){
-                    continue;
-                }
-                /** si el arco obtenido es real quiere decir que es distinto de null
-                en ese caso daria afirmativo de que es un arco entrante al vertice a borrar. **/
+                //si el arco obtenido cumple los requisitos quiere decir que es != null.
                 Arco<T> arco = this.obtenerArco(verticeOrigen,verticeId);
                 if(arco!=null){
-                    arcos.add(arco);
+                    this.borrarArco(arco.getVerticeOrigen(), arco.getVerticeDestino());
                 }
             }
-
-            for(Arco<T> arco : arcos){
-                System.out.println(arco.toString());
-                this.borrarArco(arco.getVerticeOrigen(), arco.getVerticeDestino());
-            }
-            this.vertices.remove(verticeId);
             cantVertices--;
         }
     }
@@ -92,8 +69,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
      * Por lo tanto, la complejidad de tiempo del método es logarítmica en promedio, O(log N). */
     @Override
     public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
-        if(this.contieneVertice(verticeId1) && this.contieneVertice(verticeId2)) {
-            if (!this.existeArco(verticeId1, verticeId2) && verticeId1 != verticeId2) {
+        if(this.contieneVertice(verticeId1) && this.contieneVertice(verticeId2)) { //Se agrego condicion al if que pregunta si el Vertice2 existe en el grafo.
+            if (!this.existeArco(verticeId1, verticeId2) /*&& verticeId1 != verticeId2*/) { //opcional si se quiere modificar para que un arco no tenga como origen y destino el mismo arco.
                 Arco<T> arco = new Arco<>(verticeId1, verticeId2, etiqueta);
                 vertices.get(verticeId1).add(arco);
                 cantArcos++;
@@ -102,16 +79,18 @@ public class GrafoDirigido<T> implements Grafo<T> {
     }
 
     /**
-     * Complejidad: O(log n)
-     * La complejidad logarítmica se debe a que se utiliza el método obtenerArco, que realiza una búsqueda
-     * correspondiente al vérticeId1, cuya complejidad es logarítmica. Luego, se elimina el arco del conjunto
-     * de arcos asociados al vérticeId1,lo cual tiene una complejidad constante */
+     * Complejidad: O(n)
+     * La complejidad se debe a que en el peor caso se tienen que recorrer N arcos del verticeId1 hasta encontrar el correcto para eliminarlo.*/
     @Override
     public void borrarArco(int verticeId1, int verticeId2) {
-        Arco<T> arco = this.obtenerArco(verticeId1, verticeId2);
-        if(arco!=null){
-            this.vertices.get(verticeId1).remove(arco);
-            cantArcos--;
+        //ya no se hacen mas 2 recorridos, se modifico para que se elimine directamente en 1.
+        for(Iterator<Arco<T>> it = vertices.get(verticeId1).iterator(); it.hasNext();){
+            Arco<T> arco = (Arco<T>) it.next();
+            /** se cambio el "==" por el equals para que de verdadero (al ser un Integer no funcionaba) y devuelva el Arco **/
+            if(arco.getVerticeOrigen().equals(verticeId1) && arco.getVerticeDestino().equals(verticeId2)){
+                it.remove();
+                cantArcos--;
+            }
         }
     }
 
@@ -211,6 +190,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
             adyacentes.add(arco.getVerticeDestino());
         }
         return adyacentes.iterator();
+
+
     }
 
     /**

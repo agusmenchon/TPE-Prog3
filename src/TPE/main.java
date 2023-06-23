@@ -64,9 +64,9 @@ public class main {
 //        System.out.println(bfs.bfsForest().toString());
 //
         ServicioCaminos cam = new ServicioCaminos(g, 3, 2, 7);
-        List<List<Arco<?>>> caminos = cam.caminos();
+        List<List<Integer>> caminos = cam.caminos();
         System.out.println("\nCaminos: ");
-        for (List<Arco<?>> list : caminos) {
+        for (List<Integer> list : caminos) {
             System.out.println(list.toString());
         }
 
