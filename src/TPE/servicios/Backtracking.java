@@ -55,7 +55,7 @@ public class Backtracking {
         } else {
             //itero todos los arcos del vertice pasado por parametro (inicializado en 1)
             for (Iterator<?> iterador = grafo.obtenerArcos(vertice); iterador.hasNext(); ) {
-                Arco<?> arco = (Arco<?>) iterador.next();
+                Arco<Integer> arco = (Arco<Integer>) iterador.next();
                 int verticeDestino = arco.getVerticeDestino();
 
                 if (!visitados.contains(verticeDestino)) {
@@ -64,7 +64,7 @@ public class Backtracking {
                     //RESTRICCION IMPLICITA o poda del arbol
 //                    if ((arco.getEtiqueta()+metrosActuales) < menorMetros) {
                         contVisitados++;
-                        //metrosActuales += arco.getEtiqueta();
+                        metrosActuales += arco.getEtiqueta();
                         caminoActual.add(arco);
                         //llamado recursivo a backtracking
                         Backtracking(recorridoMinimo, caminoActual, visitados, verticeDestino, contVisitados , metrosActuales);
@@ -72,7 +72,7 @@ public class Backtracking {
                 }
                 if (contVisitados == grafo.cantidadVertices()){
                     caminoActual.remove(arco);
-                    //metrosActuales = metrosActuales - arco.getEtiqueta();
+                    metrosActuales = metrosActuales - arco.getEtiqueta();
                     visitados.remove(arco.getVerticeDestino());
                     contVisitados--;
                 } 

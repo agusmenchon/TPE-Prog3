@@ -1,19 +1,16 @@
 package TPE.collections;
 
-//import TPE.collections.Vertice;
-
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class GrafoDirigido<T> implements Grafo<T> {
-    private HashMap<Integer, HashSet<Arco<T>>> vertices;
-    private int cantVertices;
-    private int cantArcos;
+    protected HashMap<Integer, HashSet<Arco<T>>> vertices;
+    protected int cantVertices;
+    protected int cantArcos;
 
     public GrafoDirigido() {
         this.vertices = new HashMap<Integer, HashSet<Arco<T>>>();
-        cantVertices = 0;
-        cantArcos = 0;
+        this.cantVertices = 0;
+        this.cantArcos = 0;
     }
 
     /* Autores:
@@ -47,7 +44,6 @@ public class GrafoDirigido<T> implements Grafo<T> {
         //borrar el vertice pasado por parametro
 
         if(this.contieneVertice(verticeId)){
-            vertices.remove(verticeId);
             //itero todos los vertices del grafo buscando que algun arco tenga como DESTINO a "verticeID"
             for (Iterator<Integer> v = this.obtenerVertices(); v.hasNext();) {
                 Integer verticeOrigen = (Integer) v.next();
@@ -57,6 +53,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
                     this.borrarArco(arco.getVerticeOrigen(), arco.getVerticeDestino());
                 }
             }
+            vertices.remove(verticeId);
             cantVertices--;
         }
     }
@@ -72,7 +69,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
         if(this.contieneVertice(verticeId1) && this.contieneVertice(verticeId2)) { //Se agrego condicion al if que pregunta si el Vertice2 existe en el grafo.
             if (!this.existeArco(verticeId1, verticeId2) /*&& verticeId1 != verticeId2*/) { //opcional si se quiere modificar para que un arco no tenga como origen y destino el mismo arco.
                 Arco<T> arco = new Arco<>(verticeId1, verticeId2, etiqueta);
-                vertices.get(verticeId1).add(arco);
+                this.vertices.get(verticeId1).add(arco);
                 cantArcos++;
             }
         }
@@ -84,7 +81,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
     @Override
     public void borrarArco(int verticeId1, int verticeId2) {
         //ya no se hacen mas 2 recorridos, se modifico para que se elimine directamente en 1.
-        for(Iterator<Arco<T>> it = vertices.get(verticeId1).iterator(); it.hasNext();){
+        for(Iterator<Arco<T>> it = this.vertices.get(verticeId1).iterator(); it.hasNext();){
             Arco<T> arco = (Arco<T>) it.next();
             /** se cambio el "==" por el equals para que de verdadero (al ser un Integer no funcionaba) y devuelva el Arco **/
             if(arco.getVerticeOrigen().equals(verticeId1) && arco.getVerticeDestino().equals(verticeId2)){
@@ -166,7 +163,6 @@ public class GrafoDirigido<T> implements Grafo<T> {
     public int cantidadArcos() {
         return cantArcos;
     }
-
 
     /**
      * Complejidad: O(1)

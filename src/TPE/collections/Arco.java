@@ -26,16 +26,6 @@ public class Arco<T> {
         return etiqueta;
     }
 
-//    @Override
-//    public int compare(T o1, T o2) {
-//        Arco arco1 = (Arco) o1;
-//        Arco arco2 = (Arco) o2;
-//        if(arco1.getEtiqueta() > arco2.getEtiqueta()) return 1;
-//        if(arco1.getEtiqueta() < arco2.getEtiqueta()) return -1;
-//        return 0;
-//    }
-
-
     @Override
     public String toString() {
         //return "Arco{" + "verticeOrigen=" + verticeOrigen + ", verticeDestino=" + verticeDestino + ", etiqueta=" + etiqueta + '}';
