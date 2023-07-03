@@ -49,24 +49,24 @@ public class MainPrueba {
 
         mostrarGrafo(g);
 
-//        ServicioDFS dfs = new ServicioDFS(g);
-//        List<Integer> orden = dfs.dfsForest();
-//        System.out.println("DFS: (mas comun: [1, 2, 6, 3, 5, 4, 7])");
-//        System.out.println(orden);
-//        orden.clear();
-//
-//        ServicioBFS bfs = new ServicioBFS(g);
-//        orden = bfs.bfsForest();
-//        System.out.println("BFS: (mas comun: [1, 2, 3, 4, 6, 5, 7])");
-//        System.out.println(orden);
-//
-//        ServicioCaminos caminos = new ServicioCaminos(g, 1, 6, 5);
-//        List<List<Integer>> resultado =  caminos.caminos();
-//
-//        //CAMINOS
-//        System.out.println("Caminos de 1 a 6 limite 5:([[1, 2, 6], [1, 3, 5, 6]])");
-//        System.out.println(resultado);
-//
+        ServicioDFS dfs = new ServicioDFS(g);
+        List<Integer> orden = dfs.dfsForest();
+        System.out.println("DFS: (mas comun: [1, 2, 6, 3, 5, 4, 7])");
+        System.out.println(orden);
+        orden.clear();
+
+        ServicioBFS bfs = new ServicioBFS(g);
+        orden = bfs.bfsForest();
+        System.out.println("BFS: (mas comun: [1, 2, 3, 4, 6, 5, 7])");
+        System.out.println(orden);
+
+        ServicioCaminos caminos = new ServicioCaminos(g, 1, 6, 5);
+        List<List<Integer>> resultado =  caminos.caminos();
+
+        //CAMINOS
+        System.out.println("Caminos de 1 a 6 limite 5:([[1, 2, 6], [1, 3, 5, 6]])");
+        System.out.println(resultado);
+
         System.out.println("Cantidad de vertices: " + g.cantidadVertices());
         System.out.println("Cantidad de arcos: " + g.cantidadArcos());
 
@@ -132,33 +132,33 @@ public class MainPrueba {
         } catch(Exception ex) {
             System.out.println("ERROR: El obtener arco no retorna el arco 2->6 o retorna el arco prototipo que no tiene etiqueta");
         }
-//
-//        System.out.println("Nuevo grafo:");
-//        mostrarGrafo(g);
-//        //CAMINOS 1-> 6 limite 3 y limite 4 y limite 5
-//        resultado.clear();
-//        caminos = new ServicioCaminos(g, 1, 6, 3);
-//        resultado = caminos.caminos();
-//
-//        System.out.println("Caminos de 1 a 6 limite 3: [[1, 2, 6], [1, 3, 5, 6], [1, 4, 7, 6], [1, 1, 2, 6]]");
-//        System.out.println(resultado);
-//
-//        System.out.println("Existe arco 2->6 ?: " + g.existeArco(2,6));
-//        System.out.println("Elimino arco 2->6");
-//        g.borrarArco(2,6);
-//        System.out.println("Existe arco 2->6 ?: " + g.existeArco(2,6));
-//
-//        resultado.clear();
-//        caminos = new ServicioCaminos(g, 1, 6, 4);
-//        resultado = caminos.caminos();
-//        System.out.println("Caminos de 1 a 6 limite 4: [[1, 3, 5, 6], [1, 4, 7, 6], [1, 1, 3, 5, 6], [1, 1, 4, 7, 6]]");
-//        System.out.println(resultado);
-//
-//        resultado.clear();
-//        caminos = new ServicioCaminos(g, 1, 6, 5);
-//        resultado = caminos.caminos();
-//        System.out.println("Caminos de 1 a 6 limite 5: [[1, 3, 5, 6], [1, 4, 7, 6], [1, 1, 3, 5, 6], [1, 1, 4, 7, 6]]");
-//        System.out.println(resultado);
+
+        System.out.println("Nuevo grafo:");
+        mostrarGrafo(g);
+        //CAMINOS 1-> 6 limite 3 y limite 4 y limite 5
+        resultado.clear();
+        caminos = new ServicioCaminos(g, 1, 6, 3);
+        resultado = caminos.caminos();
+
+        System.out.println("Caminos de 1 a 6 limite 3: [[1, 2, 6], [1, 3, 5, 6], [1, 4, 7, 6], [1, 1, 2, 6]]");
+        System.out.println(resultado);
+
+        System.out.println("Existe arco 2->6 ?: " + g.existeArco(2,6));
+        System.out.println("Elimino arco 2->6");
+        g.borrarArco(2,6);
+        System.out.println("Existe arco 2->6 ?: " + g.existeArco(2,6));
+
+        resultado.clear();
+        caminos = new ServicioCaminos(g, 1, 6, 4);
+        resultado = caminos.caminos();
+        System.out.println("Caminos de 1 a 6 limite 4: [[1, 3, 5, 6], [1, 4, 7, 6], [1, 1, 3, 5, 6], [1, 1, 4, 7, 6]]");
+        System.out.println(resultado);
+
+        resultado.clear();
+        caminos = new ServicioCaminos(g, 1, 6, 5);
+        resultado = caminos.caminos();
+        System.out.println("Caminos de 1 a 6 limite 5: [[1, 3, 5, 6], [1, 4, 7, 6], [1, 1, 3, 5, 6], [1, 1, 4, 7, 6]]");
+        System.out.println(resultado);
 
         System.out.println("Agrego arco 1->7: 17");
         g.agregarArco(1,7, 17);
@@ -175,18 +175,18 @@ public class MainPrueba {
 
         System.out.println("Nuevo grafo:");
         mostrarGrafo(g);
-//
-//        orden.clear();
-//        dfs = new ServicioDFS(g);
-//        orden = dfs.dfsForest();
-//        System.out.println("DFS");
-//        System.out.println(orden);
-//
-//        orden.clear();
-//        bfs = new ServicioBFS(g);
-//        orden = bfs.bfsForest();
-//        System.out.println("BFS");
-//        System.out.println(orden);
+
+        orden.clear();
+        dfs = new ServicioDFS(g);
+        orden = dfs.dfsForest();
+        System.out.println("DFS");
+        System.out.println(orden);
+
+        orden.clear();
+        bfs = new ServicioBFS(g);
+        orden = bfs.bfsForest();
+        System.out.println("BFS");
+        System.out.println(orden);
 
         System.out.println("Cantidad de arcos: " + g.cantidadArcos());
         System.out.println("Vuelvo a agregar arco 9->6: 296 (no debería cambiar la cantidad de arcos)");
@@ -199,7 +199,5 @@ public class MainPrueba {
         while (arcos.hasNext()) {
             System.out.println(arcos.next());
         }
-
     }
-
 }

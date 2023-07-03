@@ -44,6 +44,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
         //borrar el vertice pasado por parametro
 
         if(this.contieneVertice(verticeId)){
+
             //itero todos los vertices del grafo buscando que algun arco tenga como DESTINO a "verticeID"
             for (Iterator<Integer> v = this.obtenerVertices(); v.hasNext();) {
                 Integer verticeOrigen = (Integer) v.next();

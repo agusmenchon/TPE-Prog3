@@ -1,23 +1,22 @@
-package TPE;
+package TPE.datasets;
 
 import TPE.collections.*;
-import TPE.servicios.Backtracking;
-import TPE.servicios.Greedy;
+
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-import util.Timer;
 public class CSVReader {
+    private Grafo<Integer> grafo;
 
     private String path;
 
-    public CSVReader(String path) {
+    public CSVReader(String path, Grafo<Integer> grafo) {
         this.path = path;
+        this.grafo = grafo;
     }
 
     public void read() {
@@ -26,7 +25,7 @@ public class CSVReader {
         // lines.get(0) tiene la primer linea del archivo
         // lines.get(1) tiene la segunda linea del archivo... y así
         ArrayList<String[]> lines = this.readContent();
-        Grafo<Integer> g = new GrafoNoDirigido<Integer>();
+
         for (String[] line: lines) {
             // Cada linea es un arreglo de Strings, donde cada posicion guarda un elemento
             Integer origen = Integer.parseInt(line[0].trim().substring(1));
@@ -35,30 +34,10 @@ public class CSVReader {
 
 
             // Aca instanciar lo que necesiten en base a los datos leidos
-            g.agregarVertice(origen);
-            g.agregarVertice(destino);
-            g.agregarArco(origen, destino, etiqueta);
+            grafo.agregarVertice(origen);
+            grafo.agregarVertice(destino);
+            grafo.agregarArco(origen, destino, etiqueta);
         }
-        Timer timer = new Timer();
-        timer.start();
-        Greedy prim = new Greedy(g);
-        prim.ejecutarGreedy(1);
-        double time = timer.stop();
-        System.out.println("el tiempo es: " + time + "ms");
-        int minimaDistancia = prim.getSumaEtiqueta();
-
-        Backtracking backtracking = new Backtracking(g);
-        System.out.println("------------------------");
-        System.out.println("Algoritmo BACKTRACKING");
-        List<Arco<?>> recorrido = backtracking.Backtracking(1);
-//        int contador = 0;
-//        for(Arco<?> arco2 : recorrido){
-//            contador += arco2.getEtiqueta();
-//        }
-//        for(Arco<?> arco : recorrido){
-//            System.out.print("E"+arco.getVerticeOrigen().getId()+"-"+"E"+arco.getVerticeDestino().getId()+",");
-//        }
-//        System.out.println("\nLa suma de los caminos es: " + contador);
     }
 
     private ArrayList<String[]> readContent() {

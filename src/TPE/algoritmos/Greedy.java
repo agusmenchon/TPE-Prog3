@@ -1,4 +1,4 @@
-package TPE.servicios;
+package TPE.algoritmos;
 
 import TPE.collections.*;
 import java.util.*;
@@ -6,29 +6,30 @@ import java.util.*;
 
 public class Greedy {
     private Grafo<?> grafo;
-    private List<Arco<?>> recorrido;
-    private Integer sumaEtiqueta;
+    private ArrayList<Arco<Integer>> recorrido;
+    private Integer distanciaMenor;
+    private int ciclos;
 
     public Greedy(Grafo<?> grafo) {
         this.grafo = grafo;
         this.recorrido = new ArrayList<>();
-        this.sumaEtiqueta = 0;
+        this.distanciaMenor = 0;
     }
 
-    public void ejecutarGreedy(int vertice){
+    public ArrayList<Arco<Integer>> ejecutarGreedy(int vertice){
         this.Prim(vertice);
-        System.out.println("Algoritmo PRIM");
-        for(Arco<?> arco : recorrido){
-            System.out.print("E"+arco.getVerticeOrigen()+"-"+"E"+arco.getVerticeDestino()+",");
-        }
-        System.out.println("\nLa suma de los caminos es: " + sumaEtiqueta);
+        return this.recorrido;
     }
 
-    public int getSumaEtiqueta(){
-        if(sumaEtiqueta!=0){
-            return this.sumaEtiqueta;
+    public int getDistanciaMenor(){
+        if(distanciaMenor!=0){
+            return this.distanciaMenor;
         }
         return -1;
+    }
+
+    public int getCiclos() {
+        return ciclos;
     }
 
     public void Prim(int vertice){
@@ -40,16 +41,19 @@ public class Greedy {
         seleccion(cola, vertice, verticesVisitados);
         int cont = 0;
         while(!cola.isEmpty() && cont < this.grafo.cantidadVertices()){
+
             Arco<Integer> arcoActual = cola.poll();
             int verticeDestino = arcoActual.getVerticeDestino();
+
             if(!verticesVisitados.contains(verticeDestino)){
-                recorrido.add(arcoActual);
-                sumaEtiqueta += arcoActual.getEtiqueta();
+                this.recorrido.add(arcoActual);
+                distanciaMenor += arcoActual.getEtiqueta();
                 verticesVisitados.add(verticeDestino);
-                vertice = arcoActual.getVerticeDestino();
+                vertice = verticeDestino;
                 cont++;
                 seleccion(cola,vertice,verticesVisitados);
             }
+            ciclos++;
         }
     }
 
